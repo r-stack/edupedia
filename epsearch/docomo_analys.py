@@ -6,14 +6,15 @@ import requests
 
 from epsearch import models
 
-def _analysys(sentence):
+def analysys(sentence):
 
     key = '6734506772503357725245703873375844693535414954595a756e362e4f30582f764748426f4c4c615138'
-
+    key = '4e6f766d784b35464f66574e2f5a334d586a6c316e42724e5a384c62364335437734497235777a396d4534'
     headers = {'content-type': 'application/x-www-form-urlencoded '}
-
+    apiurl = 'https://api.apigw.smt.docomo.ne.jp/gooLanguageAnalysis/v1/entity'
+    apiurl = 'https://api.apigw.smt.docomo.ne.jp/gooLanguageAnalysisCorp/v1/entity'
     response = requests.post(
-        'https://api.apigw.smt.docomo.ne.jp/gooLanguageAnalysis/v1/entity',
+        apiurl,
         params={'APIKEY': key,
                 'sentence': sentence},
         headers=headers)
