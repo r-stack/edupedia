@@ -10,3 +10,4 @@ python-twitter
 python-social-auth==0.2.19
 slacker==0.9.15
 websocket-client==0.37.0
+google-api-python-client==1.5.1
