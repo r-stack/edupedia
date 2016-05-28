@@ -19,5 +19,5 @@ urlpatterns = [
 
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^search/', include('epsearch.urls')),
+    url(r'^', include('epsearch.urls')),
 ]
