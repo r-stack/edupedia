@@ -8,13 +8,14 @@ Created on 2016/05/28
 # coding: utf-8
 
 import json
+
 import urllib
 import urllib2
-import re
-from xml.dom.minidom import parse as parseXML
+
+
 import WikipediaExtractor
-from epsearch.models import Sentence, Page
-from epsearch import docomo_analys
+
+
 
 URL = 'http://ja.wikipedia.org/w/api.php?'
 BASIC_PARAMETERS = {'action': 'query',
@@ -22,22 +23,7 @@ BASIC_PARAMETERS = {'action': 'query',
 
 
 
-# Match external links (space separates second optional parameter)
-externalLink = re.compile(r'\[\w+[^ ]*? (.*?)]')
-externalLinkNoAnchor = re.compile(r'\[\w+[&\]]*\]')
 
-# Matches bold/italic
-bold_italic = re.compile(r"'''''(.*?)'''''")
-bold = re.compile(r"'''(.*?)'''")
-italic_quote = re.compile(r"''\"([^\"]*?)\"''")
-italic = re.compile(r"''(.*?)''")
-quote_quote = re.compile(r'""([^"]*?)""')
-
-# Matches space
-spaces = re.compile(r' {2,}')
-
-# Matches dots
-dots = re.compile(r'\.{4,}')
 
 
 class WikiHandler(object):
@@ -74,7 +60,6 @@ class WikiHandler(object):
        return urllib2.urlopen(url, timeout=20)
 
 
-import WikipediaExtractor
 
 def fetch_wiki(pagename=u'武田信玄'):
    parameters = {
@@ -100,32 +85,7 @@ def fetch_wiki(pagename=u'武田信玄'):
    text = WikipediaExtractor.Extractor(1,"titleA",lines).clean()
    return text
 
-def main(pagename, limit=50):
-    pagename = pagename.strip()
-    page = Page()
-    page.url = pagename
-    page.save()
-    
-    body = fetch_wiki(pagename)
-    print body
-    lines = body.split(u"。")
-    cnt = 0;
-    for line in lines:
-        if limit > 0 and cnt > limit:
-            print "limit sentence"
-            break
-        cnt = cnt + 1
-        sen = Sentence()
-        sen.page = page
-        sen.body = line + u"。"
-        sen.save()
-        terms = docomo_analys.analysys(sen.body)
-        for term in terms:
-            term.sentence = sen
-            term.save()
+
         
 
 
-
-if __name__ == '__main__':
-   print main(u'武田信玄')

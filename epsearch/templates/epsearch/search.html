@@ -1,0 +1,20 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+ <title></title>
+</head>
+<body>
+Search to Edupedia
+<ul>
+{% for sentence in sentences%}
+	<li>{{sentence.body}}</li>
+	<ul>
+		{% for term in sentence.term_set.all %}
+		<li>{{term.term_class}}:{{term.body}} - <img src="{{term.result}}"></li>
+		{% endfor %}
+	</ul>
+{% endfor %}
+</ul>
+</body>
+
