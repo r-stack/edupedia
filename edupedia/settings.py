@@ -110,3 +110,11 @@ STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
+
+
+# Local settings
+try:
+    from local.local_settings import *
+except ImportError:
+    logging.warning("No local_settings file found.")
+
