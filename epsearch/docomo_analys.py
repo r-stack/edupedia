@@ -2,9 +2,13 @@
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "edupedia.settings")
 
+import logging
+
 import requests
 
 from epsearch import models
+
+L = logging.getLogger(__name__)
 
 def analysys(sentence):
 
@@ -23,7 +27,7 @@ def analysys(sentence):
 
     terms = []
     for ne in response.json()['ne_list']:
-        print(ne)
+        L.debug(ne)
         term = models.Term()
 
         term.body = ne[0]
@@ -39,8 +43,8 @@ def main():
     sample = '甲斐の守護を務めた甲斐源氏武田家第18代・武田信虎の嫡男。先代・信虎期に武田氏は戦国大名化し国内統一を達成し、信玄も体制を継承して隣国・信濃に侵攻する。'
 
     result = _analysys(sample)
-    print(len(result))
-    print(result)
+    L.debug(len(result))
+    L.debug(result)
 
 if __name__ == '__main__':
     main()

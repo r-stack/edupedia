@@ -1,4 +1,6 @@
 #encoding=utf-8
+import logging
+
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
@@ -6,9 +8,9 @@ from epsearch import docomo_analys
 from epsearch.hakipedia import fetch_wiki
 from epsearch.keyword_to_image_url import GoogleImageConverter
 from epsearch.models import Page, Sentence
-import hakipedia
 
 
+L = logging.getLogger(__name__)
 
 
 class SearchView(TemplateView):
@@ -32,7 +34,7 @@ def load_page(pagename, limit=5, force=False):
     if not pagename:
         return
     pagename = pagename.strip()
-    print u"[S] load_page: %s" % pagename 
+    L.debug( u"[S] load_page: %s" % pagename )
     try:
         if force:
             Page.objects.filter(url=pagename).delete()
@@ -44,7 +46,7 @@ def load_page(pagename, limit=5, force=False):
         
 def process_data(pagename, limit=5):
     pagename = pagename.strip()
-    print u"[S] process_data: %s" % pagename 
+    L.debug( u"[S] process_data: %s" % pagename )
     page = Page()
     page.url = pagename
     page.save()
@@ -55,7 +57,7 @@ def process_data(pagename, limit=5):
     cnt = 0;
     for line in lines:
         if limit > 0 and cnt > limit:
-            print "limit sentence"
+            L.debug( "limit sentence")
             break
         cnt = cnt + 1
         sen = Sentence()
@@ -71,6 +73,6 @@ def process_data(pagename, limit=5):
                 continue
             term.result, term.comment = converter().convert_term(term.body)
             term.save()
-    print "[E] process_data"
+    L.debug("[E] process_data")
     return page
         
