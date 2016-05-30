@@ -113,6 +113,19 @@ MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
 
 
+
+# Google APIs
+GOOGLE_API_KEY = ''
+GOOGLE_SEARCH_ENGINE_ID = ''
+
+### Docomo APIs
+# for indivisual
+#DOCOMO_GOO_LANG_ANALYSIS_ENDPOINT = 'https://api.apigw.smt.docomo.ne.jp/gooLanguageAnalysis/v1/entity'
+# for corp
+DOCOMO_GOO_LANG_ANALYSIS_ENDPOINT = 'https://api.apigw.smt.docomo.ne.jp/gooLanguageAnalysisCorp/v1/entity'
+
+DOCOMO_API_KEY = ''
+
 # Local settings
 try:
     from local.local_settings import *
