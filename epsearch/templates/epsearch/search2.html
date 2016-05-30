@@ -1,0 +1,51 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Edupedia - Burning CURIOSITY</title>
+ {% comment %}
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+{%endcomment%}
+		<link rel="stylesheet" href="{{STATIC_URL}}reveal/css/reveal.css">
+		<link rel="stylesheet" href="{{STATIC_URL}}reveal/css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="{{STATIC_URL}}reveal/lib/css/zenburn.css">
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+{% for sentence in sentences%}
+	<section>{{sentence.body}}
+		
+	{% for term in sentence.term_set.all %}
+	<section data-background="{{term.result}}" data-background-size="contain">
+		{{term.term_class}}:{{term.body}} - 
+	</section>
+	{% endfor %}
+		
+	</section>
+{% endfor %}
+
+	</div><!--slides-->
+</div>
+
+<script src="{{STATIC_URL}}reveal/lib/js/head.min.js"></script>
+<script src="{{STATIC_URL}}reveal/js/reveal.js"></script>
+
+<script>
+	// More info https://github.com/hakimel/reveal.js#configuration
+	Reveal.initialize({
+		history: true,
+
+		// More info https://github.com/hakimel/reveal.js#dependencies
+		dependencies: [
+			{ src: '{{STATIC_URL}}reveal/plugin/markdown/marked.js' },
+			{ src: '{{STATIC_URL}}reveal/plugin/markdown/markdown.js' },
+			{ src: '{{STATIC_URL}}reveal/plugin/notes/notes.js', async: true },
+			{ src: '{{STATIC_URL}}reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+		]
+	});
+</script>
+</body>
+
