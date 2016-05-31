@@ -51,5 +51,5 @@ class GoogleMapConverter(BaseConverter):
         items.append(term)
         items.append("&size=800x600&sensor=false&zoom=7")
 
-        return ''.join(items)
+        return ''.join(items), ''
 #       return urllib.quote(''.join(items))
