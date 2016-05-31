@@ -14,7 +14,7 @@ L = logging.getLogger(__name__)
 
 
 class SearchView(TemplateView):
-    template_name = "epsearch/search.html"
+    template_name = "epsearch/search2.html"
     
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)

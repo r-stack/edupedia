@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static',
             ],
         },
     },
@@ -112,6 +113,19 @@ STATIC_ROOT = 'static'
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
 
+
+
+# Google APIs
+GOOGLE_API_KEY = ''
+GOOGLE_SEARCH_ENGINE_ID = ''
+
+### Docomo APIs
+# for indivisual
+#DOCOMO_GOO_LANG_ANALYSIS_ENDPOINT = 'https://api.apigw.smt.docomo.ne.jp/gooLanguageAnalysis/v1/entity'
+# for corp
+DOCOMO_GOO_LANG_ANALYSIS_ENDPOINT = 'https://api.apigw.smt.docomo.ne.jp/gooLanguageAnalysisCorp/v1/entity'
+
+DOCOMO_API_KEY = ''
 
 # Local settings
 try:

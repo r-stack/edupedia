@@ -17,6 +17,10 @@ COMPRESS_OFFLINE = True
 GOOGLE_API_KEY = ''
 GOOGLE_SEARCH_ENGINE_ID = ''
 
+# Docomo APIs
+DOCOMO_API_KEY = ''
+
+
 DATABASES = {
     'default': {
         'ENGINE' : 'django.db.backends.mysql',
