@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 
 from epsearch import docomo_analys
 from epsearch.hakipedia import fetch_wiki
-from epsearch.keyword_to_image_url import GoogleImageConverter, GoogleMapConverter
+from epsearch.keyword_to_image_url import GoogleImageConverter, GoogleMapConverter, GooglePhotoConverter
 from epsearch.models import Page, Sentence
 
 
@@ -29,6 +29,8 @@ class SearchView(TemplateView):
 CONVERT_MAP = {
        "PSN":GoogleImageConverter,
        "LOC":GoogleMapConverter,
+       "ART":GooglePhotoConverter,
+       "ORG":GooglePhotoConverter,
        }
 
 def load_page(pagename, limit=5, force=False):
