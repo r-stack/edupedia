@@ -2,7 +2,7 @@
 # @Author: kwbt69
 # @Date:   2016-05-30T23:14:06+09:00
 # @Last modified by:   kwbt69
-# @Last modified time: 2016-06-01T01:18:44+09:00
+# @Last modified time: 2016-06-02T00:21:37+09:00
 
 import urllib
 from django.conf import settings
@@ -52,4 +52,30 @@ class GoogleMapConverter(BaseConverter):
         items.append("&size=800x600&sensor=false&zoom=7")
 
         return ''.join(items), ''
-#       return urllib.quote(''.join(items))
+
+
+class GooglePhotoConverter(BaseConverter):
+    api_key = GOOGLE_API_KEY
+
+
+    def convert_term(self, term):
+
+        service = build("customsearch", "v1", developerKey=self.api_key)
+
+        request = service.cse().list(
+            q = term,
+            cx = GOOGLE_SEARCH_ENGINE_ID,
+            fileType = 'png,jpg',
+            imgSize = 'large',
+            imgType = 'photo',
+            lr = 'lang_ja',
+            num = '1',
+            searchType = 'image')
+
+        res = request.execute()
+        items = res.get("items", [])
+        if len(items):
+            link = items[0].get("link")
+        else:
+            link = ""
+        return link, res
